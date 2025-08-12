@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horloge & Date - Thèmes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        #clock {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        #date {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        #quote {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+            text-align: center;
+            max-width: 80%;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        select, button {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        button:hover, select:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Light theme */
+        .light {
+            background-color: #fff;
+            color: #000;
+        }
+        .light select, .light button {
+            background: rgba(0,0,0,0.1);
+            color: #000;
+            border: 1px solid rgba(0,0,0,0.4);
+        }
+        .light button:hover, .light select:hover {
+            background: rgba(0,0,0,0.2);
+        }
+
+        /* Colorful animated background */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .colorful {
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            color: #fff;
+        }
+        .colorful select, .colorful button {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.6);
+            color: #fff;
+        }
+        .colorful button:hover, .colorful select:hover {
+            background: rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body class="dark">
+    <div id="clock">00:00:00</div>
+    <div id="date"></div>
+    <div id="quote">Chaque seconde compte.</div>
+
+    <div class="controls">
+        <select id="themeSelect">
+            <option value="dark">Thème sombre</option>
+            <option value="light">Thème clair</option>
+            <option value="colorful">Fond coloré animé</option>
+        </select>
+        <button id="musicBtn">Musique ON</button>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="beauty-of-nature-384182.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const quotes = [
+            "Chaque seconde compte.",
+            "Le meilleur moment pour agir, c'est maintenant.",
+            "Petit pas aujourd'hui, grands résultats demain.",
+            "Souris à la vie, elle te le rendra.",
+            "Les rêves ne fonctionnent que si tu travailles."
+        ];
+
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
+
+            const days = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+            const months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+            document.getElementById("date").textContent = `Nous sommes ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+        }
+
+        function updateQuote() {
+            const index = new Date().getDate() % quotes.length;
+            document.getElementById("quote").textContent = quotes[index];
+        }
+
+        document.getElementById('themeSelect').addEventListener('change', (e) => {
+            document.body.className = e.target.value;
+        });
+
+        let musicPlaying = false;
+        const music = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById('musicBtn');
+        musicBtn.addEventListener('click', () => {
+            if (musicPlaying) {
+                music.pause();
+                musicBtn.textContent = 'Musique ON';
+            } else {
+                music.play();
+                musicBtn.textContent = 'Musique OFF';
+            }
+            musicPlaying = !musicPlaying;
+        });
+
+        setInterval(updateClock, 1000);
+        updateClock();
+        updateQuote();
+    </script>
+</body>
+</html>
