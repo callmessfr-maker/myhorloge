@@ -7,63 +7,127 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
     body {
-      margin:0;font-family:'Montserrat',sans-serif;display:flex;
-      flex-direction:column;align-items:center;justify-content:center;
-      height:100vh;color:#fff;background:#000;
-      transition:background-color 1s ease,color 0.5s ease;
+      margin:0;
+      font-family:'Montserrat',sans-serif;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      color:#fff;
+      background:#000;
       overflow:hidden;
+      transition: background-color 1s ease, color 0.5s ease;
     }
 
-    #clock{font-size:5rem;font-weight:700;margin-bottom:10px;text-shadow:0 2px 8px rgba(0,0,0,0.4);}
-    #date{font-size:1.4rem;margin-bottom:15px;text-shadow:0 1px 4px rgba(0,0,0,0.3);}
-    #quote{font-size:1rem;opacity:0.85;margin-bottom:25px;text-align:center;max-width:80%;text-shadow:0 1px 4px rgba(0,0,0,0.3);}
-    .controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:15px;}
-    select,button{
-      background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.4);
-      color:#fff;padding:8px 15px;border-radius:8px;font-size:1rem;cursor:pointer;
-      transition:background 0.3s ease;
+    #clock {
+      font-size:5rem;
+      font-weight:700;
+      margin-bottom:10px;
+      text-shadow:0 2px 8px rgba(0,0,0,0.4);
     }
-    button:hover,select:hover{background:rgba(255,255,255,0.3);}
+    #date {
+      font-size:1.4rem;
+      margin-bottom:15px;
+      text-shadow:0 1px 4px rgba(0,0,0,0.3);
+    }
+    #quote {
+      font-size:1rem;
+      opacity:0.85;
+      margin-bottom:25px;
+      text-align:center;
+      max-width:80%;
+      text-shadow:0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .controls {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin-top:15px;
+    }
+    select, button {
+      padding:8px 15px;
+      border-radius:8px;
+      font-size:1rem;
+      cursor:pointer;
+      transition:all 0.3s ease;
+    }
 
     /* Thèmes fixes */
-    .light{background:#fff;color:#000;}
-    .simple-dark{background:#222;}
-    .simple-light{background:#ddd;color:#000;}
+    .dark { background:#111; color:#fff; }
+    .light { background:#fff; color:#000; }
+    .simple-dark { background:#222; color:#fff; }
+    .simple-light { background:#eee; color:#000; }
 
-    /* Fond coloré clair : effet fluide multicolore */
+    /* Fond coloré clair pastel */
     .colorful {
-      background: radial-gradient(circle at 20% 30%, #ff6ec4, transparent 40%),
-                  radial-gradient(circle at 80% 20%, #42e695, transparent 40%),
-                  radial-gradient(circle at 60% 80%, #f7971e, transparent 40%),
-                  radial-gradient(circle at 30% 70%, #7873f5, transparent 40%),
-                  radial-gradient(circle at 50% 50%, #00c9ff, transparent 40%);
-      background-size: 200% 200%;
-      animation: aurora 20s ease-in-out infinite alternate;
-      color:#fff;
+      background: linear-gradient(270deg, #fff4e6, #ffe6f7, #e6f7ff, #f9f9f9, #fff0f5);
+      background-size: 1000% 1000%;
+      animation: gradientMove 35s ease infinite;
+      color:#333;
     }
 
-    /* Fond coloré foncé : version plus galactique */
+    /* Fond coloré foncé type galaxie */
     .colorful-dark {
-      background: radial-gradient(circle at 20% 30%, #ff0080, transparent 40%),
-                  radial-gradient(circle at 80% 20%, #00f0ff, transparent 40%),
-                  radial-gradient(circle at 60% 80%, #9b00ff, transparent 40%),
-                  radial-gradient(circle at 30% 70%, #ffae00, transparent 40%),
-                  radial-gradient(circle at 50% 50%, #00ff85, transparent 40%);
-      background-size: 200% 200%;
-      animation: aurora 25s ease-in-out infinite alternate;
+      background: linear-gradient(270deg, #0d0d1a, #1a1a40, #2e003e, #001f54, #000814);
+      background-size: 1000% 1000%;
+      animation: gradientMove 40s ease infinite;
       color:#fff;
     }
 
-    @keyframes aurora {
-      0% { background-position: 0% 0%; }
-      50% { background-position: 100% 100%; }
-      100% { background-position: 0% 0%; }
+    @keyframes gradientMove {
+      0% { background-position:0% 50%; }
+      50% { background-position:100% 50%; }
+      100% { background-position:0% 50%; }
     }
 
-    .colorful select,.colorful button,
-    .colorful-dark select,.colorful-dark button{
-      background:rgba(0,0,0,0.25);
-      border:1px solid rgba(255,255,255,0.6);
+    /* Boutons : style par défaut */
+    select, button {
+      background:rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.4);
+      color:#fff;
+    }
+    button:hover, select:hover {
+      background:rgba(255,255,255,0.3);
+    }
+
+    /* Boutons clair pastel */
+    .colorful select,
+    .colorful button,
+    .light select,
+    .light button,
+    .simple-light select,
+    .simple-light button {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      color: #333;
+      font-weight:600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .colorful select:hover,
+    .colorful button:hover,
+    .light select:hover,
+    .light button:hover,
+    .simple-light select:hover,
+    .simple-light button:hover {
+      background:#f5f5f5;
+      border-color: rgba(0,0,0,0.3);
+    }
+
+    /* Boutons sombre/galaxie */
+    .dark select, .dark button,
+    .simple-dark select, .simple-dark button,
+    .colorful-dark select, .colorful-dark button {
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.4);
+      color:#fff;
+    }
+    .dark select:hover, .dark button:hover,
+    .simple-dark select:hover, .simple-dark button:hover,
+    .colorful-dark select:hover, .colorful-dark button:hover {
+      background: rgba(255,255,255,0.15);
     }
   </style>
 </head>
@@ -76,10 +140,10 @@
     <select id="themeSelect">
       <option value="dark">Thème sombre</option>
       <option value="light">Thème clair</option>
-      <option value="colorful">Fond coloré animé</option>
-      <option value="colorful-dark">Fond coloré foncé animé</option>
       <option value="simple-dark">Sombre simple</option>
       <option value="simple-light">Clair simple</option>
+      <option value="colorful">Fond coloré clair</option>
+      <option value="colorful-dark">Fond coloré foncé</option>
     </select>
     <button id="musicBtn">Musique ON</button>
   </div>
@@ -89,40 +153,54 @@
   </audio>
 
   <script>
-    const quotes=[
-      "Chaque seconde compte.","Le meilleur moment pour agir, c'est maintenant.",
-      "Petit pas aujourd'hui, grands résultats demain.","Souris à la vie, elle te le rendra.",
+    const quotes = [
+      "Chaque seconde compte.",
+      "Le meilleur moment pour agir, c'est maintenant.",
+      "Petit pas aujourd'hui, grands résultats demain.",
+      "Souris à la vie, elle te le rendra.",
       "Les rêves ne fonctionnent que si tu travailles."
     ];
-    function updateClock(){
-      const now=new Date();
-      const h=String(now.getHours()).padStart(2,'0');
-      const m=String(now.getMinutes()).padStart(2,'0');
-      const s=String(now.getSeconds()).padStart(2,'0');
-      document.getElementById("clock").textContent=`${h}:${m}:${s}`;
-      const days=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
-      const months=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
-      document.getElementById("date").textContent=`Nous sommes ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2,'0');
+      const m = String(now.getMinutes()).padStart(2,'0');
+      const s = String(now.getSeconds()).padStart(2,'0');
+      document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+      const days = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+      const months = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+      document.getElementById("date").textContent =
+        `Nous sommes ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
     }
-    function updateQuote(){
-      document.getElementById("quote").textContent=quotes[new Date().getDate()%quotes.length];
+
+    function updateQuote() {
+      document.getElementById("quote").textContent = quotes[new Date().getDate()%quotes.length];
     }
-    setInterval(updateClock,1000);updateClock();updateQuote();
+
+    setInterval(updateClock,1000);
+    updateClock();
+    updateQuote();
 
     // Thèmes
-    document.getElementById('themeSelect').addEventListener('change',e=>{
-      document.body.className=e.target.value;
+    document.getElementById('themeSelect').addEventListener('change', e => {
+      document.body.className = e.target.value;
     });
 
     // Musique
-    let musicPlaying=false;
-    const music=document.getElementById('bgMusic');
-    const musicBtn=document.getElementById('musicBtn');
-    musicBtn.addEventListener('click',()=>{
-      if(musicPlaying){music.pause();musicBtn.textContent='Musique ON';}
-      else{music.play();musicBtn.textContent='Musique OFF';}
-      musicPlaying=!musicPlaying;
+    let musicPlaying = false;
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    musicBtn.addEventListener('click', () => {
+      if (musicPlaying) {
+        music.pause();
+        musicBtn.textContent = 'Musique ON';
+      } else {
+        music.play();
+        musicBtn.textContent = 'Musique OFF';
+      }
+      musicPlaying = !musicPlaying;
     });
   </script>
 </body>
 </html>
+
