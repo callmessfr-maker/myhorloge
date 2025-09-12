@@ -3,33 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horloge & Date - Mélange de couleurs</title>
+  <title>Horloge & Date - Fonds améliorés</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
     body {
-      margin:0;
-      font-family:'Montserrat',sans-serif;
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      margin:0;font-family:'Montserrat',sans-serif;display:flex;
+      flex-direction:column;align-items:center;justify-content:center;
       height:100vh;color:#fff;background:#000;
-      overflow:hidden;position:relative;
-    }
-
-    /* Arrière-plan animé en couches pour mélange de couleurs */
-    .bg-layer {
-      position:absolute;top:-50%;left:-50%;
-      width:200%;height:200%;
-      background:radial-gradient(circle at 20% 30%,rgba(255,0,150,0.4) 0%,transparent 60%),
-                 radial-gradient(circle at 80% 40%,rgba(0,200,255,0.4) 0%,transparent 60%),
-                 radial-gradient(circle at 50% 80%,rgba(255,255,0,0.4) 0%,transparent 60%),
-                 radial-gradient(circle at 30% 60%,rgba(0,255,150,0.4) 0%,transparent 60%);
-      filter:blur(60px);
-      animation:move 40s ease-in-out infinite alternate;
-      z-index:-1;
-    }
-    @keyframes move {
-      0% {transform:translate(0,0) rotate(0deg);}
-      50% {transform:translate(10%, -10%) rotate(45deg);}
-      100% {transform:translate(-10%,10%) rotate(-30deg);}
+      transition:background-color 1s ease,color 0.5s ease;
+      overflow:hidden;
     }
 
     #clock{font-size:5rem;font-weight:700;margin-bottom:10px;text-shadow:0 2px 8px rgba(0,0,0,0.4);}
@@ -43,28 +25,50 @@
     }
     button:hover,select:hover{background:rgba(255,255,255,0.3);}
 
+    /* Thèmes fixes */
     .light{background:#fff;color:#000;}
     .simple-dark{background:#222;}
     .simple-light{background:#ddd;color:#000;}
 
-    /* Ajustement des boutons sur fonds colorés */
-    body:not(.light):not(.simple-light) select,
-    body:not(.light):not(.simple-light) button {
-      background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.6);
+    /* Fond coloré clair amélioré */
+    .colorful{
+      background:linear-gradient(270deg,#ff9a9e,#f6d365,#a1c4fd,#c2e9fb,#d4fc79);
+      background-size:1000% 1000%;
+      animation:gradientMove 35s ease infinite;
+      color:#fff;
+    }
+
+    /* Fond coloré foncé amélioré */
+    .colorful-dark{
+      background:linear-gradient(270deg,#0f2027,#203a43,#2c5364,#42275a,#734b6d);
+      background-size:1000% 1000%;
+      animation:gradientMove 40s ease infinite;
+      color:#fff;
+    }
+
+    @keyframes gradientMove {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
+    }
+
+    .colorful select,.colorful button,.colorful-dark select,.colorful-dark button{
+      background:rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.6);
     }
   </style>
 </head>
 <body class="dark">
-  <div class="bg-layer"></div>
-
   <div id="clock">00:00:00</div>
   <div id="date"></div>
   <div id="quote">Chaque seconde compte.</div>
 
   <div class="controls">
     <select id="themeSelect">
-      <option value="default">Fond multicouleurs</option>
+      <option value="dark">Thème sombre</option>
       <option value="light">Thème clair</option>
+      <option value="colorful">Fond coloré animé</option>
+      <option value="colorful-dark">Fond coloré foncé animé</option>
       <option value="simple-dark">Sombre simple</option>
       <option value="simple-light">Clair simple</option>
     </select>
@@ -97,17 +101,8 @@
     setInterval(updateClock,1000);updateClock();updateQuote();
 
     // Thèmes
-    const themeSelect=document.getElementById('themeSelect');
-    const bgLayer=document.querySelector('.bg-layer');
-    themeSelect.addEventListener('change',e=>{
-      const val=e.target.value;
-      if(val==="default"){
-        bgLayer.style.display="block";
-        document.body.className="";
-      }else{
-        bgLayer.style.display="none";
-        document.body.className=val;
-      }
+    document.getElementById('themeSelect').addEventListener('change',e=>{
+      document.body.className=e.target.value;
     });
 
     // Musique
