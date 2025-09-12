@@ -3,115 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horloge & Date - Fonds multiples</title>
+  <title>Horloge & Date - Fonds améliorés</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-
     body {
-      margin:0;
-      font-family:'Montserrat',sans-serif;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      height:100vh;
-      color:#fff;
-      background:#000;
+      margin:0;font-family:'Montserrat',sans-serif;display:flex;
+      flex-direction:column;align-items:center;justify-content:center;
+      height:100vh;color:#fff;background:#000;
+      transition:background-color 1s ease,color 0.5s ease;
       overflow:hidden;
-      transition:background-color 1s ease, color 0.5s ease;
     }
 
-    /* ==================== FONDS ==================== */
-
-    /* Thème sombre */
-    .dark { background:#000; color:#fff; }
-
-    /* Thème clair */
-    .light { background:#fff; color:#000; }
-
-    /* Simples */
-    .simple-dark { background:#222; color:#fff; }
-    .simple-light { background:#ddd; color:#000; }
-
-    /* Fond coloré clair amélioré */
-    .colorful {
-      background:linear-gradient(270deg,#ff9a9e,#f6d365,#a1c4fd,#c2e9fb,#d4fc79);
-      background-size:1000% 1000%;
-      animation:gradientMove 35s ease infinite;
-      color:#fff;
-    }
-
-    /* Fond coloré foncé amélioré */
-    .colorful-dark {
-      background:linear-gradient(270deg,#0f2027,#203a43,#2c5364,#42275a,#734b6d);
-      background-size:1000% 1000%;
-      animation:gradientMove 40s ease infinite;
-      color:#fff;
-    }
-
-    @keyframes gradientMove {
-      0% {background-position:0% 50%;}
-      50% {background-position:100% 50%;}
-      100% {background-position:0% 50%;}
-    }
-
-    /* === Fond fluide aurore boréale === */
-    .aurora, .aurora-dark {
-      position: fixed;
-      top:0;left:0;width:100%;height:100%;
-      overflow:hidden;
-      z-index:-1;
-      display:none;
-    }
-
-    .aurora span, .aurora-dark span {
-      position:absolute;
-      width:80vmax;
-      height:80vmax;
-      border-radius:50%;
-      filter:blur(100px);
-      opacity:0.6;
-      animation:move 25s infinite alternate ease-in-out;
-    }
-
-    /* Version claire */
-    .aurora span:nth-child(1){background:#ff6ec4;top:-10%;left:-10%;}
-    .aurora span:nth-child(2){background:#7873f5;top:20%;left:60%;}
-    .aurora span:nth-child(3){background:#42e695;top:60%;left:-20%;}
-    .aurora span:nth-child(4){background:#f7971e;top:70%;left:50%;}
-
-    /* Version sombre */
-    .aurora-dark span:nth-child(1){background:#0f2027;top:-10%;left:10%;}
-    .aurora-dark span:nth-child(2){background:#203a43;top:40%;left:70%;}
-    .aurora-dark span:nth-child(3){background:#2c5364;top:60%;left:-30%;}
-    .aurora-dark span:nth-child(4){background:#42275a;top:75%;left:40%;}
-
-    @keyframes move {
-      from {transform:translate(0,0) scale(1);}
-      to {transform:translate(200px,-200px) scale(1.2);}
-    }
-
-    /* ==================== CONTENU ==================== */
     #clock{font-size:5rem;font-weight:700;margin-bottom:10px;text-shadow:0 2px 8px rgba(0,0,0,0.4);}
     #date{font-size:1.4rem;margin-bottom:15px;text-shadow:0 1px 4px rgba(0,0,0,0.3);}
-    #quote{font-size:1rem;opacity:0.9;margin-bottom:25px;text-align:center;max-width:80%;text-shadow:0 1px 4px rgba(0,0,0,0.3);}
-
+    #quote{font-size:1rem;opacity:0.85;margin-bottom:25px;text-align:center;max-width:80%;text-shadow:0 1px 4px rgba(0,0,0,0.3);}
     .controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:15px;}
     select,button{
-      background:rgba(255,255,255,0.15);
-      border:1px solid rgba(255,255,255,0.4);
-      color:#fff;padding:8px 15px;border-radius:8px;
-      font-size:1rem;cursor:pointer;
+      background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.4);
+      color:#fff;padding:8px 15px;border-radius:8px;font-size:1rem;cursor:pointer;
       transition:background 0.3s ease;
     }
     button:hover,select:hover{background:rgba(255,255,255,0.3);}
+
+    /* Thèmes fixes */
+    .light{background:#fff;color:#000;}
+    .simple-dark{background:#222;}
+    .simple-light{background:#ddd;color:#000;}
+
+    /* Fond coloré clair : effet fluide multicolore */
+    .colorful {
+      background: radial-gradient(circle at 20% 30%, #ff6ec4, transparent 40%),
+                  radial-gradient(circle at 80% 20%, #42e695, transparent 40%),
+                  radial-gradient(circle at 60% 80%, #f7971e, transparent 40%),
+                  radial-gradient(circle at 30% 70%, #7873f5, transparent 40%),
+                  radial-gradient(circle at 50% 50%, #00c9ff, transparent 40%);
+      background-size: 200% 200%;
+      animation: aurora 20s ease-in-out infinite alternate;
+      color:#fff;
+    }
+
+    /* Fond coloré foncé : version plus galactique */
+    .colorful-dark {
+      background: radial-gradient(circle at 20% 30%, #ff0080, transparent 40%),
+                  radial-gradient(circle at 80% 20%, #00f0ff, transparent 40%),
+                  radial-gradient(circle at 60% 80%, #9b00ff, transparent 40%),
+                  radial-gradient(circle at 30% 70%, #ffae00, transparent 40%),
+                  radial-gradient(circle at 50% 50%, #00ff85, transparent 40%);
+      background-size: 200% 200%;
+      animation: aurora 25s ease-in-out infinite alternate;
+      color:#fff;
+    }
+
+    @keyframes aurora {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    .colorful select,.colorful button,
+    .colorful-dark select,.colorful-dark button{
+      background:rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.6);
+    }
   </style>
 </head>
 <body class="dark">
-  <!-- Fonds fluides -->
-  <div class="aurora"><span></span><span></span><span></span><span></span></div>
-  <div class="aurora-dark"><span></span><span></span><span></span><span></span></div>
-
   <div id="clock">00:00:00</div>
   <div id="date"></div>
   <div id="quote">Chaque seconde compte.</div>
@@ -120,12 +76,10 @@
     <select id="themeSelect">
       <option value="dark">Thème sombre</option>
       <option value="light">Thème clair</option>
-      <option value="simple-dark">Sombre simple</option>
-      <option value="simple-light">Clair simple</option>
       <option value="colorful">Fond coloré animé</option>
       <option value="colorful-dark">Fond coloré foncé animé</option>
-      <option value="aurora">Aurore boréale clair</option>
-      <option value="aurora-dark">Aurore boréale sombre</option>
+      <option value="simple-dark">Sombre simple</option>
+      <option value="simple-light">Clair simple</option>
     </select>
     <button id="musicBtn">Musique ON</button>
   </div>
@@ -140,7 +94,6 @@
       "Petit pas aujourd'hui, grands résultats demain.","Souris à la vie, elle te le rendra.",
       "Les rêves ne fonctionnent que si tu travailles."
     ];
-
     function updateClock(){
       const now=new Date();
       const h=String(now.getHours()).padStart(2,'0');
@@ -151,34 +104,14 @@
       const months=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
       document.getElementById("date").textContent=`Nous sommes ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
     }
-
     function updateQuote(){
       document.getElementById("quote").textContent=quotes[new Date().getDate()%quotes.length];
     }
+    setInterval(updateClock,1000);updateClock();updateQuote();
 
-    setInterval(updateClock,1000);
-    updateClock();updateQuote();
-
-    // Gestion des thèmes
-    const themeSelect=document.getElementById('themeSelect');
-    const aurora=document.querySelector('.aurora');
-    const auroraDark=document.querySelector('.aurora-dark');
-
-    themeSelect.addEventListener('change',e=>{
+    // Thèmes
+    document.getElementById('themeSelect').addEventListener('change',e=>{
       document.body.className=e.target.value;
-
-      // cacher les fonds aurore par défaut
-      aurora.style.display="none";
-      auroraDark.style.display="none";
-
-      if(e.target.value==="aurora"){
-        aurora.style.display="block";
-        document.body.style.color="#fff";
-      }
-      if(e.target.value==="aurora-dark"){
-        auroraDark.style.display="block";
-        document.body.style.color="#fff";
-      }
     });
 
     // Musique
