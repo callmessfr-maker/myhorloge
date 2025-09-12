@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horloge & Date - Fonds dégradés doux</title>
+  <title>Horloge & Date - Dégradé fluide</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
     body {
       margin:0;font-family:'Montserrat',sans-serif;display:flex;
       flex-direction:column;align-items:center;justify-content:center;
-      height:100vh;background:#000;color:#fff;
+      height:100vh;color:#fff;background:#000;
       transition:background-color 1s ease,color 0.5s ease;
     }
     #clock{font-size:5rem;font-weight:700;margin-bottom:10px;}
@@ -28,32 +28,25 @@
     .simple-dark{background:#222;}
     .simple-light{background:#ddd;color:#000;}
 
-    /* Fonds animés en fondu doux */
-    @keyframes fadeGradient {
-      0%   {background:linear-gradient(120deg,#ff9a9e,#fad0c4);}
-      25%  {background:linear-gradient(120deg,#a1c4fd,#c2e9fb);}
-      50%  {background:linear-gradient(120deg,#fbc2eb,#a6c1ee);}
-      75%  {background:linear-gradient(120deg,#f6d365,#fda085);}
-      100% {background:linear-gradient(120deg,#ff9a9e,#fad0c4);}
+    /* Dégradé fluide clair */
+    .colorful {
+      background:linear-gradient(270deg,#ff9a9e,#fad0c4,#a1c4fd,#c2e9fb);
+      background-size:800% 800%;
+      animation:gradientShift 30s ease infinite;
     }
-    .colorful{
-      animation:fadeGradient 20s ease infinite;
-      background-size:200% 200%;
-      color:#fff;
+    /* Dégradé fluide foncé */
+    .colorful-dark {
+      background:linear-gradient(270deg,#0f2027,#203a43,#2c5364,#6a0572,#283E51);
+      background-size:800% 800%;
+      animation:gradientShift 40s ease infinite;
     }
-    @keyframes fadeGradientDark {
-      0%   {background:linear-gradient(120deg,#0f2027,#2c5364);}
-      25%  {background:linear-gradient(120deg,#1a2a6c,#b21f1f,#fdbb2d);}
-      50%  {background:linear-gradient(120deg,#2C3E50,#4CA1AF);}
-      75%  {background:linear-gradient(120deg,#283E51,#485563);}
-      100% {background:linear-gradient(120deg,#0f2027,#2c5364);}
+    @keyframes gradientShift {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
     }
-    .colorful-dark{
-      animation:fadeGradientDark 20s ease infinite;
-      background-size:200% 200%;
-      color:#fff;
-    }
-    .colorful select,.colorful button,.colorful-dark select,.colorful-dark button{
+    .colorful select,.colorful button,
+    .colorful-dark select,.colorful-dark button {
       background:rgba(0,0,0,0.25);
       border:1px solid rgba(255,255,255,0.6);
     }
@@ -68,8 +61,8 @@
     <select id="themeSelect">
       <option value="dark">Thème sombre</option>
       <option value="light">Thème clair</option>
-      <option value="colorful">Fond coloré animé</option>
-      <option value="colorful-dark">Fond coloré foncé animé</option>
+      <option value="colorful">Fond coloré fluide</option>
+      <option value="colorful-dark">Fond foncé fluide</option>
       <option value="simple-dark">Sombre simple</option>
       <option value="simple-light">Clair simple</option>
     </select>
