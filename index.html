@@ -3,94 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horloge Animée</title>
+  <title>Horloge & Date - Thèmes</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-    :root {
-      --text-color: #fff;
-      --bg-dark-gradient: linear-gradient(-45deg,#0f2027,#2c5364,#203a43,#6a0572);
-    }
     body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      color: var(--text-color);
-      background: var(--bg-dark-gradient);
-      background-size: 400% 400%;
-      animation: gradientMove 18s ease infinite;
-      transition: color 0.5s ease;
+      margin:0;
+      font-family:'Montserrat',sans-serif;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      background-color:#000;
+      color:#fff;
+      transition:background-color 0.5s ease,color 0.5s ease;
     }
-    @keyframes gradientMove {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    #clock{
+      font-size:5rem;
+      font-weight:700;
+      letter-spacing:2px;
+      margin-bottom:10px;
+      text-shadow:0 2px 8px rgba(0,0,0,0.4);
+      transition:transform 0.2s ease;
     }
-    #status {
-      font-size: 1rem;
-      opacity: 0.8;
-      margin-bottom: 10px;
+    #date{
+      font-size:1.4rem;
+      margin-bottom:15px;
+      text-shadow:0 1px 4px rgba(0,0,0,0.3);
     }
-    #clock {
-      font-size: 5rem;
-      font-weight: 700;
-      text-shadow: 0 0 15px rgba(255,255,255,0.3), 0 0 30px rgba(255,255,255,0.2);
-      margin: 0;
-      transition: transform 0.2s ease;
+    #quote{
+      font-size:1rem;
+      opacity:0.85;
+      margin-bottom:25px;
+      text-align:center;
+      max-width:80%;
+      text-shadow:0 1px 4px rgba(0,0,0,0.3);
     }
-    #date {
-      font-size: 1.4rem;
-      margin-top: 10px;
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin-top:15px;
     }
-    #quote {
-      margin-top: 15px;
-      font-size: 1rem;
-      opacity: 0.85;
-      max-width: 80%;
-      text-align: center;
+    select,button{
+      background:rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.4);
+      color:#fff;
+      padding:8px 15px;
+      border-radius:4px;
+      font-size:1rem;
+      cursor:pointer;
+      transition:background 0.3s ease,color 0.3s ease;
     }
-    .controls {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      align-items: center;
+    button:hover,select:hover{background:rgba(255,255,255,0.3);}
+    /* Thèmes d’origine */
+    .light{background:#fff;color:#000;}
+    .light select,.light button{background:rgba(0,0,0,0.1);color:#000;border:1px solid rgba(0,0,0,0.4);}
+    .light button:hover,.light select:hover{background:rgba(0,0,0,0.2);}
+    .simple-dark{background:#222;color:#fff;}
+    .simple-light{background:#ddd;color:#000;}
+    @keyframes gradientMove{
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
     }
-    button, input[type=range] {
-      cursor: pointer;
+    .colorful{
+      background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a1c4fd,#c2e9fb);
+      background-size:400% 400%;
+      animation:gradientMove 15s ease infinite;
+      color:#fff;
     }
-    button {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.4);
-      color: #fff;
-      padding: 8px 15px;
-      border-radius: 6px;
-      font-size: 1rem;
-      transition: background 0.3s ease, transform 0.2s ease;
+    /* Nouveau fond coloré foncé animé */
+    .colorful-dark{
+      background:linear-gradient(-45deg,#0f2027,#2c5364,#203a43,#6a0572);
+      background-size:400% 400%;
+      animation:gradientMove 18s ease infinite;
+      color:#fff;
     }
-    button:hover {
-      background: rgba(255,255,255,0.25);
-      transform: scale(1.05);
-    }
-    input[type=range] {
-      width: 120px;
+    .colorful select,.colorful button,
+    .colorful-dark select,.colorful-dark button{
+      background:rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.6);
     }
   </style>
 </head>
-<body>
-  <div id="status">🌙 Nuit</div>
+<body class="dark">
   <div id="clock">00:00:00</div>
   <div id="date"></div>
   <div id="quote">Chaque seconde compte.</div>
 
   <div class="controls">
+    <select id="themeSelect">
+      <option value="dark">Thème sombre</option>
+      <option value="light">Thème clair</option>
+      <option value="colorful">Fond coloré animé</option>
+      <option value="colorful-dark">Fond coloré foncé animé</option>
+      <option value="simple-dark">Sombre simple</option>
+      <option value="simple-light">Clair simple</option>
+    </select>
     <button id="musicBtn">Musique ON</button>
     <label>Volume : <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1"></label>
-    <button id="resetTheme">Réinitialiser Thème</button>
   </div>
 
   <audio id="bgMusic" loop>
@@ -98,58 +111,53 @@
   </audio>
 
   <script>
-    const statusEl = document.getElementById('status');
-    const clockEl = document.getElementById('clock');
-    const dateEl = document.getElementById('date');
-    const quoteEl = document.getElementById('quote');
-    const quotes = [
+    const quotes=[
       "Chaque seconde compte.",
       "Le meilleur moment pour agir, c'est maintenant.",
       "Petit pas aujourd'hui, grands résultats demain.",
       "Souris à la vie, elle te le rendra.",
       "Les rêves ne fonctionnent que si tu travailles."
     ];
-
     function updateClock(){
       const now=new Date();
       const h=String(now.getHours()).padStart(2,'0');
       const m=String(now.getMinutes()).padStart(2,'0');
       const s=String(now.getSeconds()).padStart(2,'0');
-      clockEl.textContent=`${h}:${m}:${s}`;
+      const clock=document.getElementById("clock");
+      const newTime=`${h}:${m}:${s}`;
+      if(clock.textContent!==newTime){
+        clock.style.transform='scale(1.05)';
+        setTimeout(()=>clock.style.transform='scale(1)',150);
+      }
+      clock.textContent=newTime;
       const days=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
       const months=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
-      dateEl.textContent=`Nous sommes ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-      statusEl.textContent = (now.getHours()>=7 && now.getHours()<19) ? "☀️ Jour" : "🌙 Nuit";
+      document.getElementById("date").textContent=`Nous sommes ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
     }
-
     function updateQuote(){
-      quoteEl.textContent = quotes[new Date().getDate() % quotes.length];
+      document.getElementById("quote").textContent=quotes[new Date().getDate()%quotes.length];
     }
+    const themeSelect=document.getElementById('themeSelect');
+    themeSelect.addEventListener('change',e=>{
+      document.body.className=e.target.value;
+    });
 
     let musicPlaying=false;
     const music=document.getElementById('bgMusic');
     const musicBtn=document.getElementById('musicBtn');
     const volumeControl=document.getElementById('volumeControl');
-    music.volume=1;
-
     musicBtn.addEventListener('click',()=>{
       if(musicPlaying){
         music.pause();
         musicBtn.textContent='Musique ON';
-      } else {
+      }else{
         music.play();
         musicBtn.textContent='Musique OFF';
       }
       musicPlaying=!musicPlaying;
     });
-    volumeControl.addEventListener('input',(e)=>{
-      music.volume = e.target.value;
-    });
-
-    document.getElementById('resetTheme').addEventListener('click',()=>{
-      document.body.style.background='';
-      document.body.style.backgroundSize='400% 400%';
-      document.body.style.animation='gradientMove 18s ease infinite';
+    volumeControl.addEventListener('input',e=>{
+      music.volume=e.target.value;
     });
 
     setInterval(updateClock,1000);
